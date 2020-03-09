@@ -1,3 +1,5 @@
+![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)
+
 # Traffic-sign-recognition
 
 ## Table of contents
@@ -22,22 +24,22 @@ The repository contains following files and folders:
 For the dataset, images from a driving car, training and testing images for a set of signs can be found [here](https://drive.google.com/drive/u/0/folders/0B8DbLKogb5ktTW5UeWd1ZUxibDA).
 
 
-## Output Video:
+## Output Video
 
 The google drive link for sample output video is provided here:
 
 [Video](https://drive.google.com/open?id=1EfDC4rpTF3HhwQKok_FVIE2kgiWOaShD)
 
-## Libraries used:
+## Dependencies used
 Project is created with:
-* OpenCV 4
+* OpenCV - (OpenCV uses a BSD license and hence can be used for production with modification to the code.)
 * Numpy
 * Scikit Learn
-* pickle
+* Pickle
 * Skimage
 
 
-# Theory
+# Algorithm Process and Output Results
 
 Introduction In this project of Traﬃc Sign Recognition, the whole project can be divided into two phases. First phase involved the detection of the sign, (this phase does not focus on what the sign is). The next phase of Classiﬁcation involved determining the sign that was been detected. For the detection phase, we ﬁrst denoise the image, followed by contrast stretching and normalizing the intensity. After this we applied the MSER algorithm for feature detection. Once these features were identiﬁed, a bounding box is ﬁtted to the detected Region of Interest for the data preparation of the next phase of Classiﬁcation. In Classiﬁcation, ﬁrst the SVM(Support Vector Machine) classiﬁer is trained using HOG feature extraction on the training set. Then the corresponding detected areas of interest are classiﬁed using the trained SVM classiﬁer.
 
@@ -62,7 +64,7 @@ Introduction In this project of Traﬃc Sign Recognition, the whole project can 
 7. After this we need to apply the test part of the code to the main program where we give the detected sign as the test image and the predict function provides a label for each image and the corresponding sign is displayed beside the detected region.
 
 
-## Images
+## Output Results
 
 |![](images/traffic_signs.png)|
 |:--:|
@@ -103,3 +105,143 @@ Introduction In this project of Traﬃc Sign Recognition, the whole project can 
 |![](images/X_road_1.png)|
 |:--:|
 | *Cross road* |
+
+## License
+```
+MIT License
+
+Copyright (c) 2018 Aditya Vaishampayan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## Virtual Environment
+
+### Installing a Virtual Environment
+The virtualenv package is required to create virtual environments. You can install it with pip:
+```
+pip install virtualenv
+```
+
+### Create the virtual environment
+To create a virtual environment, you must specify a path. For example to create one in the local directory called ‘mypython’, type the following:
+```
+virtualenv mypython
+```
+
+### Activate the virtual environment
+You can activate the python environment by running the following command:
+
+Mac OS / Linux
+```
+source mypython/bin/activate
+```
+
+You should see the name of your virtual environment in brackets on your terminal line e.g. (mypython).
+
+Any python commands you use will now work with your virtual environment
+
+### Deactivate the virtual environment
+To decativate the virtual environment and use your original Python environment, simply type ‘deactivate’.
+```
+deactivate
+```
+
+## OpenCV installation
+Update packages
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+We will install required dependencies
+```
+sudo apt-get install build-essential checkinstall cmake pkg-config yasm
+sudo apt-get install git gfortran
+sudo apt-get install libjpeg8-dev libjasper-dev libpng12-dev
+ ```
+If you are using Ubuntu 14.04
+```
+sudo apt-get install libtiff4-dev
+```
+If you are using Ubuntu 16.04
+```
+sudo apt-get install libtiff5-dev
+```
+
+```
+sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev
+sudo apt-get install libxine2-dev libv4l-dev
+sudo apt-get install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
+sudo apt-get install qt5-default libgtk2.0-dev libtbb-dev
+sudo apt-get install libatlas-base-dev
+sudo apt-get install libfaac-dev libmp3lame-dev libtheora-dev
+sudo apt-get install libvorbis-dev libxvidcore-dev
+sudo apt-get install libopencore-amrnb-dev libopencore-amrwb-dev
+sudo apt-get install x264 v4l-utils
+ ```
+Optional dependencies
+```
+sudo apt-get install libprotobuf-dev protobuf-compiler
+sudo apt-get install libgoogle-glog-dev libgflags-dev
+sudo apt-get install libgphoto2-dev libeigen3-dev libhdf5-dev doxygen
+```
+Clone OpenCV and OpenCV_contrib
+```
+git clone https://github.com/opencv/opencv.git
+cd opencv
+git checkout 3.3.1
+cd ..
+
+git clone https://github.com/opencv/opencv_contrib.git
+cd opencv_contrib
+git checkout 3.3.1
+cd ..
+```
+Make build directory
+```
+cd opencv
+mkdir build
+cd build
+```
+Run Cmake
+```
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D INSTALL_C_EXAMPLES=ON \
+      -D INSTALL_PYTHON_EXAMPLES=ON \
+      -D WITH_TBB=ON \
+      -D WITH_V4L=ON \
+      -D WITH_QT=ON \
+      -D WITH_OPENGL=ON \
+      -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
+      -D BUILD_EXAMPLES=ON ..
+```
+Find out number of CPU cores in your machine
+```
+nproc
+
+# substitute 4 by output of nproc
+make -j4
+sudo make install
+sudo sh -c 'echo "/usr/local/lib" >> /etc/ld.so.conf.d/opencv.conf'
+sudo ldconfig
+```
+For installation related issues.
+
+A complete OpenCV installation guide in Ubuntu can be found [here](http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/).
